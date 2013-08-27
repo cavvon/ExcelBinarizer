@@ -7,7 +7,6 @@ namespace XLSConverter
 {
     public class ExcelInterop : IDisposable
     {
-        //This is a test comment. That is pretty sweet
         private bool _disposed = false;
         private Application excelApp;
 
@@ -20,10 +19,10 @@ namespace XLSConverter
         public void ConvertFiles(FileInfo[] files, string inputDir, string outputDir)
         {
             int errors = 0;
-            // I don't feel that this is necessary.
+
             for (int i = 0; i < files.Length; i++)
             {
-                try // I feel this is necessary
+                try
                 {
                     string newPath = GenerateNewPath(files[i].FullName, inputDir, outputDir);
                     Convert(files[i].FullName, newPath, excelApp);
