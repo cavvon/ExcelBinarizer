@@ -20,7 +20,7 @@ namespace XLSConverter
         public void ConvertFiles(FileInfo[] files, string inputDir, string outputDir)
         {
             int errors = 0;
-
+            // I don't feel that this is necessary.
             for (int i = 0; i < files.Length; i++)
             {
                 try
