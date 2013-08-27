@@ -23,7 +23,7 @@ namespace XLSConverter
             // I don't feel that this is necessary.
             for (int i = 0; i < files.Length; i++)
             {
-                try
+                try // I feel this is necessary
                 {
                     string newPath = GenerateNewPath(files[i].FullName, inputDir, outputDir);
                     Convert(files[i].FullName, newPath, excelApp);
