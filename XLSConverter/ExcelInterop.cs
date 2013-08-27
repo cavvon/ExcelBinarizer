@@ -7,7 +7,7 @@ namespace XLSConverter
 {
     public class ExcelInterop : IDisposable
     {
-
+        //This is a test comment.
         private bool _disposed = false;
         private Application excelApp;
 
