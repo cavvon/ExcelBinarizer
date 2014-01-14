@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
+using System.Threading;
 
 namespace XLSConverter
 {
@@ -25,13 +26,22 @@ namespace XLSConverter
                 try
                 {
                     string newPath = GenerateNewPath(files[i].FullName, inputDir, outputDir);
-                    Convert(files[i].FullName, newPath, excelApp);
+                    var t = new Thread(new ThreadStart(delegate { Convert(files[i].FullName, newPath, excelApp); }));
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+                    t.Join();
                     Console.Write(String.Format("\r{0} / {1} Converted", i + 1, files.Length));
                 }
                 catch (Exception e)
                 {
                     errors++;
                     Logging.Write(files[i].FullName, "ERROR: " + e.Message);
+                    if (e.Message.Contains("RPC_E_SERVERCALL_RETRYLATER"))
+                    {
+                        Logging.Write(files[i].FullName, "Waiting 1 second and retrying...");
+                        Thread.Sleep(1000);
+                        i--;
+                    }
                 }
             }
 
