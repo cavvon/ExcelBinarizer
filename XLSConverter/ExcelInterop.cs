@@ -26,10 +26,7 @@ namespace XLSConverter
                 try
                 {
                     string newPath = GenerateNewPath(files[i].FullName, inputDir, outputDir);
-                    var t = new Thread(new ThreadStart(delegate { Convert(files[i].FullName, newPath, excelApp); }));
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-                    t.Join();
+                    Convert(files[i].FullName, newPath, excelApp);
                     Console.Write(String.Format("\r{0} / {1} Converted", i + 1, files.Length));
                 }
                 catch (Exception e)
@@ -38,8 +35,7 @@ namespace XLSConverter
                     Logging.Write(files[i].FullName, "ERROR: " + e.Message);
                     if (e.Message.Contains("RPC_E_SERVERCALL_RETRYLATER"))
                     {
-                        Logging.Write(files[i].FullName, "Waiting 1 second and retrying...");
-                        Thread.Sleep(1000);
+                        Logging.Write(files[i].FullName, "Retrying...");
                         i--;
                     }
                 }
