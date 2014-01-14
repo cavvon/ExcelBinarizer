@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace XLSConverter
@@ -50,9 +51,13 @@ namespace XLSConverter
         private static FileInfo[] CollectFilesForConversion(string inputDir)
         {
             DirectoryInfo inDir = new DirectoryInfo(inputDir);
+            List<FileInfo> conversionFiles = new List<FileInfo>();
             if (inDir.Exists)
             {
-                return inDir.GetFiles("*.xls", SearchOption.AllDirectories);
+                conversionFiles.AddRange(inDir.GetFiles("*.xls", SearchOption.AllDirectories)); // Adds xls extensions (xls, xlsx, xlsb...)
+                conversionFiles.AddRange(inDir.GetFiles("*.csv", SearchOption.AllDirectories));
+                conversionFiles.AddRange(inDir.GetFiles("*.tsv", SearchOption.AllDirectories));
+                return conversionFiles.ToArray();
             }
             else
             {
