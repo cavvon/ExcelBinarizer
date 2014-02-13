@@ -25,8 +25,10 @@ namespace XLSConverter
             {
                 try
                 {
+                    DateTime lastWrite = files[i].LastWriteTime;
                     string newPath = GenerateNewPath(files[i].FullName, inputDir, outputDir);
                     Convert(files[i].FullName, newPath, excelApp);
+                    File.SetLastWriteTime(newPath, lastWrite);
                     Console.Write(String.Format("\r{0} / {1} Converted", i + 1, files.Length));
                 }
                 catch (Exception e)
