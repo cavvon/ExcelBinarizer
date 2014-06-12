@@ -45,7 +45,6 @@ namespace XLSConverter
 
             Console.WriteLine(string.Format("\nDone with {0} errors! Logfile is in output directory.", errors));
             Logging.Write(string.Format("Done with {0} errors. Search ERROR to find.", errors));
-            Console.ReadLine();
         }
 
         private static string GenerateNewPath(string oldPath, string inputDir, string outputDir)

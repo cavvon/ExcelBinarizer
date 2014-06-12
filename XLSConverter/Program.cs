@@ -8,6 +8,12 @@ namespace XLSConverter
     {
         static void Main(string[] args)
         {
+            if (args.Length != 2)
+            {
+                Console.WriteLine("This program batch converts xls and xlsx files to xlsb.\n" +
+                    "Folder traversal is recursive.\nCmd Line Usage: Binarizer.exe <inputDirectory> <outputDirectory>\n");
+            }
+
             bool rerun = false;
             do
             {
@@ -19,9 +25,6 @@ namespace XLSConverter
 
                     if (args.Length != 2)
                     {
-                        Console.WriteLine("This program batch converts xls and xlsx files to xlsb.\n" +
-                            "Folder traversal is recursive.\nCmd Line Usage: Binarizer.exe <inputDirectory> <outputDirectory>\n");
-
                         do
                         {
                             Console.WriteLine("Use default directories (.\\input; .\\output) [y/n]?");
